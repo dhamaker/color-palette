@@ -1,0 +1,31 @@
+{
+  "name" : "Example Color Patette",
+  "contact" : "design@example.com",
+  "foreground" : [
+  {
+    "name" :  "Black",
+    "rgb" : "rgb(0,0,0)",
+    "notes" : "Normal text"
+  },
+  {
+    "name" :  "White",
+    "rgb" : "rgb(240,240,240)",
+    "notes" : ""
+  },
+  {
+    "name" : "ACME Red",
+    "rgb" : "rgb(255,0,0)",
+    "notes" : "Special constraints. See Brand Guidelines."
+  }
+],
+"background" : [
+  {
+    "name":  "Black",
+    "rgb": "rgb(0,0,0)"
+  },
+  {
+    "name":  "Off White",
+    "rgb": "rgb(200,200,200)"
+  }
+  ]
+}
