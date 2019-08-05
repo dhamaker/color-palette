@@ -50,6 +50,13 @@
   </head>
   <body>
     <header class="palette">
+      <form action="#" method="get">
+        <label for="">
+          Color palette URL
+          <input type="text" name="data" value="">
+        </label>
+        <button type="submit" name="action">View</button>
+      </form>
       <!-- palette name and contact go here -->
     </header>
     <main id="swatches">
@@ -100,8 +107,9 @@
         var paletteContact = document.createElement("p")
 
         //  get palette and render
-
-        var requestURL = "palette.json";
+        var requestURL = getQueryVariable("data") ? getQueryVariable("data") : "example.json" ;
+        //var requestURL = "example.json";
+        console.log(requestURL);
         var request = new XMLHttpRequest();
         request.open('GET', requestURL);
         request.responseType = 'json';

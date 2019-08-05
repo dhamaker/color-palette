@@ -1,4 +1,4 @@
-// https://gist.github.com/oriadam/396a4beaaad465ca921618f2f2444d49
+// Source:  https://gist.github.com/oriadam/396a4beaaad465ca921618f2f2444d49
 // return array of [r,g,b,a] from any valid color. if failed returns undefined
 function colorValues(color)
 {
@@ -43,7 +43,7 @@ function colorValues(color)
 	}
 }
 
-
+// Source: Doug Hamaker 
 function contrastRatio(foreground, background){
   var fg = colorValues(foreground);
   var bg = colorValues(background);
@@ -66,4 +66,16 @@ function contrastRatio(foreground, background){
   l2 = (.2126*l2R) + (.7152*l2G) + (.0722*l2B); //using linearised R, G, and B value
   var contrast = (l1 > l2) ? (l1 + .05)/(l2 + .05) : (l2 + .05)/(l1 + .05);
   return contrast.toFixed(2);
+}
+
+// Source:  https://css-tricks.com/snippets/javascript/get-url-variables/
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
 }
