@@ -26,6 +26,10 @@
   {
     "name":  "Off White",
     "rgb": "rgb(200,200,200)"
+  },
+  {
+    "rgb" : "rgb(255,0,0)",
+    "notes" : "Special constraints. See Brand Guidelines."
   }
   ]
 }
