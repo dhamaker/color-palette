@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="base.css" media="all">
     <style media="screen">
       body {font-family:sans-serif;padding:1em;}
+      label {margin-left:2em;}
       footer {margin-top:3em;}
       .swatch {
         max-width:20em;
@@ -46,20 +47,27 @@
         display:flex;
         flex-wrap:wrap;
       }
+      header.palette {
+        flex-basis:100%;
+      }
     </style>
   </head>
   <body>
-    <header class="palette">
+    <header>
       <form action="#" method="get">
-        <label for="">
-          Color palette URL
-          <input type="text" name="data" value="">
+        Accessible Color Palette
+        <label>
+          palette src
+          <input type="text" name="data" value="" required>
         </label>
         <button type="submit" name="action">View</button>
+        <a href="https://github.com/dhamaker/color-palette">About</a>
       </form>
-      <!-- palette name and contact go here -->
     </header>
     <main id="swatches">
+      <header class="palette">
+        <!-- palette name and contact go here -->
+      </header>
       <!-- swatches go here -->
     </main>
     <footer>
