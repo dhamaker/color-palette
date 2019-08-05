@@ -5,7 +5,7 @@ Creates an accessible view of a color palette from a json file.  Renders a serie
 
 ## palette.json format
 
-`
+```
 {
   "name" : "Example",
   "contact" : "design@example.com"
@@ -25,4 +25,4 @@ Creates an accessible view of a color palette from a json file.  Renders a serie
   ]
 }
 
-`
+```
