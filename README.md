@@ -1,7 +1,9 @@
 # color-palette
 Acessible Color Palette
 
-Creates an accessible view of a color palette from a json file.  Renders a series of cards for each foreground color including swatches for background colors that meet 3:1 contrast ratio of WCAG 2.1 Level AA,.
+Creates an accessible view of a color palette from a json file.  Renders a series of cards for each foreground color including swatches for background colors that meet 3:1 contrast ratio of WCAG 2.1 Level AA.
+
+[A11y Color Palette](https://dhamaker.github.io/color-palette/palette.html)
 
 ## palette.json format
 
