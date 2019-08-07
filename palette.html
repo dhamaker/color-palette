@@ -142,8 +142,7 @@
             swatch.style.backgroundColor = fgColor.rgb;
             // get distinguishable backgrounds
             data.background.forEach(function(bgColor){
-              //if contrastRatio(fgColor.rgb, bgColor.rgb) > 3;
-              //console.log(contrastRatio(fgColor.rgb, bgColor.rgb));
+              // display samples with contrastRatio(fgColor.rgb, bgColor.rgb) > 3;
               var contrast=contrastRatio(fgColor.rgb, bgColor.rgb);
               if (contrast > 3){
                 var bgSwatch = document.importNode(templateBG.content, true);
@@ -155,7 +154,7 @@
                 swatchValue.textContent = bgColor.rgb;
                 swatchRatio.textContent = contrast;
                 swatch.style.backgroundColor = bgColor.rgb;
-                // swatch.style.foregroundColor = fgColor.rgb;
+                swatch.style.color = fgColor.rgb;
                 // append to distinguishable color
                 card.querySelector(".distinguishable").appendChild(bgSwatch);
               }
