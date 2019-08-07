@@ -136,6 +136,7 @@
             var swatchName = card.querySelector("h2");
             var swatchValue = card.querySelector(".rgb");
             var swatch = card.querySelector(".colorSample");
+            var mainColor;
             // update card information
             swatchName.textContent = fgColor.name;
             swatchValue.textContent = fgColor.rgb;
@@ -155,9 +156,11 @@
                 swatchRatio.textContent = contrast;
                 swatch.style.backgroundColor = bgColor.rgb;
                 swatch.style.color = fgColor.rgb;
+                mainColor = bgColor.rgb;
                 // append to distinguishable color
                 card.querySelector(".distinguishable").appendChild(bgSwatch);
               }
+                swatch.style.color = mainColor;
             })
             // append swatch
             swatches.appendChild(card);
