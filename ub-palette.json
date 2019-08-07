@@ -33,6 +33,8 @@
   "background" : [
     {"name" : "Black", "rgb" : "rgb(0,0,0)"},
     {"name" : "White", "rgb" : "rgba(255,255,255,1)"},
+    {"name" : "ub-light-blue", "rgb" : "rgb(233,241,247)"},
+    {"name" : "ub-light-blue", "rgb" : "rgb(211,227,240)"},
     {"name" : "ub-grey", "rgb" : "rgb(90,90,90)"}
   ]
 }
