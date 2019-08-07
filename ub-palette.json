@@ -45,8 +45,8 @@
     {"name" : "ub-light-blue", "rgb" : "rgb(233,241,247)"}
   ],
   "background" : [
-      {"name" : "black", "rgb" : "rgb(0,0,0)"},
-      {"name" : "10-1", "rgb" : "rgba(247,247,247,0.1)"},
-      {"name" : "ub-grey", "rgb" : "rgb(90,90,90)"}
+    {"name" : "black", "rgb" : "rgb(0,0,0)"},
+    {"name" : "10-1", "rgb" : "rgba(247,247,247,0.1)"},
+    {"name" : "ub-grey", "rgb" : "rgb(90,90,90)"}
   ]
 }
