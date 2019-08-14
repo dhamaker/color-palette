@@ -157,7 +157,7 @@
                 swatchRatio.textContent = contrast;
                 swatch.style.backgroundColor = bgColor.rgb;
                 //swatch.style.color = fgColor.rgb;
-                if (contrastRatio("rgb(0,0,0)",bgColor.rgb))>3){
+                if (contrastRatio("rgb(0,0,0)",bgColor.rgb) > 3){
                   swatch.style.color = "rgba(0,0,0,.75)";
                   mainColor = "rgba(255,255,255,.75)";
                 } else {
