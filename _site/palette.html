@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>A11y Color Palette</title>
+    <link rel="stylesheet" href="base.css" media="all">
+    <style media="screen">
+      body {font-family:sans-serif;padding:1em;background-color:#e8e8e8;}
+      label {margin-left:2em;}
+      footer {margin-top:3em;}
+      .swatch {
+        max-width:16em;
+        display  : flex;
+        flex-wrap : wrap;
+        align-content: flex-start;
+        margin:.5em auto;
+      }
+      .swatch header {flex-basis:100%}
+      .colorSample {
+        margin:0;padding:.5rem;color:#eee;
+        height:12em;
+        background:#eee;
+        flex-basis:100%;
+      }
+      .colorSample * {
+        margin:0;
+        padding:0 0 .25em 0;
+        font-size:1em;
+        font-weight:normal;
+      }
+      .distinguishable {
+        display:flex;
+        flex-wrap: wrap;
+        width:100%;
+      }
+      .distinguishable .colorSample {
+        margin:0;
+        height:4rem;
+
+        flex-basis:27%;
+        overflow:hidden;
+      }
+      .distinguishable .colorSample * {
+        font-size:.5rem;
+      }
+      #swatches {
+        display:flex;
+        flex-wrap:wrap;
+      }
+      header.palette {
+        flex-basis:100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <form action="#" method="get">
+        Accessible Color Palette
+        <label>
+          palette src
+          <input type="text" name="data" value="" required>
+        </label>
+        <button type="submit" name="action">View</button>
+        <a href="https://github.com/dhamaker/color-palette">About</a>
+      </form>
+    </header>
+    <main id="swatches">
+      <header class="palette">
+        <!-- palette name and contact go here -->
+      </header>
+      <!-- swatches go here -->
+    </main>
+    <footer>
+      <small>&copy;Doug Hamaker</small>
+    </footer>
+  </body>
+  <!-- component templates -->
+  <template id="colorswatch">
+    <article class="swatch">
+      <header>
+        <h2 class="name"></h2>
+      </header>
+      <section class="colorSample">
+        <h3>Foreground</h3>
+        <p class="rgb"></p>
+      </section>
+      <section class="distinguishable">
+        <h3 hidden>Background</h3>
+      <!-- compliant backgrond swatches go here -->
+      </section>
+    </article>
+  </template>
+  <template id="backgroundSwatch">
+    <section class="colorSample">
+      <h4 class="name"></h4>
+      <p class="rgb"></p>
+      <p><span class="ratio"></span>:1</p>
+    </section>
+  </template>
+  <script type="text/javascript" src="palette.js"></script>
+  <script>
+    // Test to see if the browser supports the HTML template element by checking
+    // for the presence of the template element's content attribute.
+    if ('content' in document.createElement('template')) {
+
+        // Instantiate the table with the existing HTML tbody
+        // and the row with the template
+        var template = document.querySelector('#colorswatch');
+        var templateBG= document.querySelector('#backgroundSwatch')
+
+        // Clone the new swatch insert it into the collection
+        var swatches = document.querySelector("#swatches");
+        var header = document.querySelector("header.palette");
+        var paletteName = document.createElement("h1")
+        var paletteContact = document.createElement("p")
+
+        //  get palette and render
+        var requestURL = getQueryVariable("data") ? getQueryVariable("data") : "example.json" ;
+        //var requestURL = "example.json";
+        console.log(requestURL);
+        var request = new XMLHttpRequest();
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function() {
+          var data = request.response;
+          // swatch
+          paletteName.textContent = data.name;
+          paletteContact.textContent = data.contact;
+          header.appendChild(paletteName);
+          header.appendChild(paletteContact);
+
+
+          var backgroundColors = new Array();
+          backgroundColors = data.background;
+
+          data.foreground.forEach(function(fgColor){
+            // create new swatch card
+            var card = document.importNode(template.content, true);
+            var swatchName = card.querySelector("h2");
+            var swatchValue = card.querySelector(".rgb");
+            var swatch = card.querySelector(".colorSample");
+            var mainColor;
+            // update card information
+            swatchName.textContent = fgColor.name;
+            swatchValue.textContent = fgColor.rgb;
+            swatch.style.backgroundColor = fgColor.rgb;
+            // get distinguishable backgrounds
+
+            // Add contrast value
+            backgroundColors.forEach(function(bgColor){
+              var contrast=contrastRatio(fgColor.rgb, bgColor.rgb);
+              bgColor.contrast = contrast;
+            });
+
+
+            // render potential compliant (>3:1) backgrounds by descending contrast.
+            backgroundColors.sort((a, b) => parseFloat(b.contrast) - parseFloat(a.contrast)).forEach(function(bgColor){
+              // display samples with contrastRatio(fgColor.rgb, bgColor.rgb) > 3;
+              var contrast=contrastRatio(fgColor.rgb, bgColor.rgb);
+              if (contrast > 3){
+                var bgSwatch = document.importNode(templateBG.content, true);
+                var swatchName = bgSwatch.querySelector(".name");
+                var swatchValue = bgSwatch.querySelector(".rgb");
+                var swatchRatio = bgSwatch.querySelector(".ratio");
+                var swatch = bgSwatch.querySelector(".colorSample");
+                swatchName.textContent = bgColor.name;
+                swatchValue.textContent = bgColor.rgb;
+                swatchRatio.textContent = contrast;
+                swatch.style.backgroundColor = bgColor.rgb;
+                //swatch.style.color = fgColor.rgb;
+                if (contrastRatio("rgb(0,0,0)",bgColor.rgb) > 4.5){
+                  swatch.style.color = "rgba(0,0,0,.75)";
+                  mainColor = "rgba(255,255,255,.75)";
+                } else {
+                  swatch.style.color = "rgba(255,255,255,.75)";
+                  mainColor = "rgba(0,0,0,.75)";
+                }
+                // append to distinguishable color
+                card.querySelector(".distinguishable").appendChild(bgSwatch);
+              }
+              })
+            // append swatch
+            swatch.style.color = mainColor;
+            swatches.appendChild(card);
+          })
+        }
+    } else {
+      alert('not supported');
+      // Find another way to add the rows to the table because
+      // the HTML template element is not supported.
+    }
+  </script>
+</html>
