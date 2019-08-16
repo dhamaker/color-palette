@@ -131,6 +131,10 @@
           header.appendChild(paletteName);
           header.appendChild(paletteContact);
 
+
+          var backgroundColors = new Array();
+          backgroundColors = data.background;
+
           data.foreground.forEach(function(fgColor){
             // create new swatch card
             var card = document.importNode(template.content, true);
@@ -143,7 +147,16 @@
             swatchValue.textContent = fgColor.rgb;
             swatch.style.backgroundColor = fgColor.rgb;
             // get distinguishable backgrounds
-            data.background.forEach(function(bgColor){
+
+            // Add contrast value
+            backgroundColors.forEach(function(bgColor){
+              var contrast=contrastRatio(fgColor.rgb, bgColor.rgb);
+              bgColor.contrast = contrast;
+            });
+
+
+            // render potential compliant (>3:1) backgrounds by descending contrast.
+            backgroundColors.sort((a, b) => parseFloat(b.contrast) - parseFloat(a.contrast)).forEach(function(bgColor){
               // display samples with contrastRatio(fgColor.rgb, bgColor.rgb) > 3;
               var contrast=contrastRatio(fgColor.rgb, bgColor.rgb);
               if (contrast > 3){
@@ -164,7 +177,6 @@
                   swatch.style.color = "rgba(255,255,255,.75)";
                   mainColor = "rgba(0,0,0,.75)";
                 }
-                //mainColor = bgColor.rgb;
                 // append to distinguishable color
                 card.querySelector(".distinguishable").appendChild(bgSwatch);
               }
