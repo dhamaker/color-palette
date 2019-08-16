@@ -36,7 +36,6 @@
     {"name" : "White", "rgb" : "rgba(255,255,255,1)"},
     {"name" : "Black", "rgb" : "rgb(0,0,0)"},
     {"name" : "500.98 (Modal)", "rgb" : "rgba(61,61,61,.98)"},
-
     {"name" : "ub-teal", "rgb" : "rgb( 0, 99, 104 )"},
     {"name" : "ub-teal 50%", "rgb" : "rgb(  130, 157, 162  )"},
     {"name" : "ub-teal 25%", "rgb" : "rgb( 185, 197, 201 )"},
